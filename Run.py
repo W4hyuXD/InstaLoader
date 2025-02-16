@@ -9,7 +9,6 @@ import os, random, sys
 import time, datetime
 from datetime import datetime
 from time import sleep
-from time import sleep as jeda
 from time import strftime
 from rich import print as dawg
 from rich.panel import Panel as cuy
