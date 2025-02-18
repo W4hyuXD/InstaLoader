@@ -82,7 +82,7 @@ def logo_menu():
     
         {P2}[italic]Free Tools Instagram Downloader Post / Video Reels [/italic]
   '''
-  dawg(cuy(banner,title=f'{ken}{A2}{hari}, {tanggal}{tod}',subtitle_align='left',width=75,padding=(0),style='#AAAAAA'))
+  dawg(cuy(banner,title=f'{ken}{A2}{hari}, {tanggal}{tod}',subtitle_align='left',width=75,padding=(0),style='#da0064'))
 
 
 # <--- Ambil Video --->
@@ -97,19 +97,35 @@ def jikot_pidio(link_dawg):
     if response.status_code != 200:
         dawg("[bold red]❌ Gagal mengambil data dari API![/bold red]")
         return None
+
     data = response.json()
-    dess = cuy.fit(f'{P2}📩 Response JSON',style="#AAAAAA")
-    ress = cuy.fit(f"[bold cyan]{data}[/bold cyan]",style="#AAAAAA")
-    apalahh = dalan(dess, guide_style="bold #AAAAAA")
-    apalahh.add(ress)
-    console.print(apalahh)
+    #print(data)
+    # Ambil data dari JSON aja
+    username = data.get("username", "Tidak diketahui")
+    caption = data.get("caption", "Tidak ada caption")
+    post_time = data.get("upload_date", "Tidak diketahui")
+    media_type = data.get("media_type", "Unknown")
+    video_url = data.get("download_url", None)
 
-    if "download_url" in data:
-        return data["download_url"]
-    else:
-        dawg(cuy.fit(f"{P2}❌ Video tidak ditemukan dalam response JSON!",style="#AAAAAA"))
-        return None
-
+    # Tampilkan data
+    hyu1 = cuy.fit(f"{P2}📥 Detail Postingan Instagram", style="bold #da0064")
+    hyu2 = cuy.fit(f"{P2}👤 Username: {H2}{username}")
+    hyu3 = cuy.fit(f"{P2}📝 Caption: {H2}{caption[:100]}{'...' if len(caption) > 100 else ''}",style="#AAAAAA")
+    hyu4 = cuy.fit(f"{P2}📅 Tanggal Upload: {H2}{post_time}",style="#da0064")
+    hyu5 = cuy.fit(f"{P2}📌 Jenis Media: {H2}{media_type}",style="#da0064")
+    
+    if video_url:
+      hyu6 = cuy.fit(f"{P2}🔗 Link Video: {B2}{video_url}",style="#da0064")
+      anjay = dalan(hyu1,guide_style="bold #da0064")
+      anjay.add(hyu2)
+      anjay.add(hyu3)
+      anjay.add(hyu4)
+      anjay.add(hyu5)
+      anjay.add(hyu6)
+      console.print(anjay)
+    
+    return video_url
+  
 # <--- Donlot Dawg --->
 def donlot(link_pidio, simpen, filename="insta_video_wahyuxd.mp4"):
     if not os.path.exists(simpen):
@@ -134,26 +150,26 @@ def donlot(link_pidio, simpen, filename="insta_video_wahyuxd.mp4"):
                         progress.update(task, advance=len(chunk))
                         time.sleep(0.01)
             
-            dawg(cuy.fit(f"{P2}✅ Download sukses! Video disimpan di: {B2}{full_path}",style="#AAAAAA"))
+            dawg(cuy.fit(f"{P2}✅ Download sukses! Video disimpan di: {B2}{full_path}",style="#da0064"))
         else:
             dawg("[bold red]❌ Gagal download video![/bold red]")
 
 if __name__ == "__main__":
     os.system("cls" if os.name == "nt" else "clear")
     logo_menu()
-    dawg(cuy.fit(f'{P2}Masukkan link Instagram publik{A2}',subtitle=f'{A2}╭─{ken}{P2}(Reels/Post){tod}',subtitle_align='left',style='#AAAAAA'))
+    dawg(cuy.fit(f'{P2}Masukkan link Instagram publik{A2}',subtitle=f'{A2}╭─{ken}{P2}(Reels/Post){tod}',subtitle_align='left',style='#da0064'))
     link_dawg = input(f"{A}   ╰─> {H}")
-    dawg(cuy.fit(f'{P2}Masukkan folder penyimpan video{A2}',subtitle=f'{A2}╭─{ken}{P2}Penyimpanan{tod}',subtitle_align='left',style='#AAAAAA'))
+    dawg(cuy.fit(f'{P2}Masukkan folder penyimpan video{A2}',subtitle=f'{A2}╭─{ken}{P2}Penyimpanan{tod}',subtitle_align='left',style='#da0064'))
     simpen = input(f"{A}   ╰─> {H}")
-    dawg(cuy.fit(f'{P2}Masukkan nama file video (Bebas){A2}',subtitle=f'{A2}╭─{ken}{P2}Tanpa .mp4{tod}',subtitle_align='left',style='#AAAAAA'))
+    dawg(cuy.fit(f'{P2}Masukkan nama file video (Bebas){A2}',subtitle=f'{A2}╭─{ken}{P2}Tanpa .mp4{tod}',subtitle_align='left',style='#da0064'))
     aran_file = input(f"{A}   ╰─> {H}").strip()
     if not aran_file.lower().endswith(".mp4"):
         aran_file += ".mp4"
     link_pidio = jikot_pidio(link_dawg)
     if link_pidio:
-        des = cuy.fit(f'{P2}🔗 Link video',style="#AAAAAA")
-        res = cuy.fit(f"[bold yellow]{link_pidio}[/bold yellow]",style="#AAAAAA")
-        apalah = dalan(des, guide_style="bold #AAAAAA")
+        des = cuy.fit(f'{P2}🔗 Link video',style="#da0064")
+        res = cuy.fit(f"[bold yellow]{link_pidio}[/bold yellow]",style="#da0064")
+        apalah = dalan(des, guide_style="bold #da0064")
         apalah.add(res)
         console.print(apalah)
         print("")
